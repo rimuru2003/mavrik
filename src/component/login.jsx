@@ -15,13 +15,11 @@ const Login = () => {
     e.preventDefault();
     setError("");
 
-    // Basic validation
     if (!email || !password) {
       setError("Please enter both email and password");
       return;
     }
 
-    // Retrieve user data from local storage
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
     if (!storedUser) {
@@ -29,13 +27,11 @@ const Login = () => {
       return;
     }
 
-    // Check if email and password match
     if (storedUser.email !== email || storedUser.password !== password) {
       setError("Invalid email or password");
       return;
     }
 
-    // Handle successful login logic here
     console.log("Login successful");
   };
 

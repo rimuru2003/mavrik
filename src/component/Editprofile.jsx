@@ -12,12 +12,12 @@ const EditProfile = () => {
   });
 
   useEffect(() => {
-    const storedProfile = JSON.parse(localStorage.getItem('user')); // Update key to 'user'
+    const storedProfile = JSON.parse(localStorage.getItem('user')); 
     if (storedProfile) {
       setProfile(storedProfile);
     }
   }, []);
-  
+
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === 'file') {
@@ -39,7 +39,7 @@ const EditProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem('user', JSON.stringify(profile)); // Update key to 'user'
+    localStorage.setItem('user', JSON.stringify(profile)); 
     console.log('Updated Profile:', profile);
   };
 

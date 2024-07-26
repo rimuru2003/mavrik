@@ -11,10 +11,9 @@ const Profile = () => {
     image: 'https://via.placeholder.com/150'
   });
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Hook to programmatically navigate
-
+  const navigate = useNavigate(); 
   useEffect(() => {
-    const storedProfile = JSON.parse(localStorage.getItem('user')); // Update key to 'user'
+    const storedProfile = JSON.parse(localStorage.getItem('user')); 
     if (storedProfile) {
       setProfile(storedProfile);
     }
@@ -22,8 +21,8 @@ const Profile = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('user'); // Remove user data from local storage
-    navigate('/login'); // Redirect to login page (or any other page)
+    localStorage.removeItem('user'); 
+    navigate('/login'); 
   };
 
   if (loading) {

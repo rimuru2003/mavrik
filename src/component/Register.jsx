@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { MdOutlineArrowBack } from "react-icons/md";
+import { Link } from 'react-router-dom';
 const Register = () => {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
     username: '',
     email: '',
-    password: ''
+    password: '',
+    
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -36,6 +38,11 @@ const Register = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 bg-gradient-to-r from-green-400 to-blue-500">
+       <Link to="/">
+        <button className="absolute text-white z-40 top-10 left-11 p-2 bg-black rounded-full shadow-md hover:bg-gray-800 transition duration-300">
+          <MdOutlineArrowBack size={26} />
+        </button>
+      </Link>
       <div className=" bg-opacity-50 p-8 rounded shadow-xl w-[30%] backdrop-blur-md backdrop-filter">
         <h2 className="text-3xl mb-4 text-center">Register</h2>
         {error && <div className="mb-4 text-red-500 text-center">{error}</div>}

@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { MdOutlineArrowBack } from "react-icons/md"
 import { Link } from "react-router-dom"
+
 const Register = () => {
   const [user, setUser] = useState({
     firstName: "",
@@ -9,6 +10,7 @@ const Register = () => {
     username: "",
     email: "",
     password: "",
+    confirmPassword: ""
   })
   const [error, setError] = useState("")
   const navigate = useNavigate()
@@ -18,16 +20,29 @@ const Register = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }))
+
+    if (e.target.name === 'password' || e.target.name === 'confirmPassword') {
+      if (user.password !== user.confirmPassword) {
+        setError("Passwords do not match")
+      } else {
+        setError("")
+      }
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setError("")
 
-    const { firstName, lastName, username, email, password } = user
+    const { firstName, lastName, username, email, password, confirmPassword } = user
 
-    if (!firstName || !lastName || !username || !email || !password) {
+    if (!firstName || !lastName || !username || !email || !password || !confirmPassword) {
       setError("Please fill in all fields")
+      return
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match")
       return
     }
 
@@ -116,6 +131,20 @@ const Register = () => {
               onChange={handleChange}
             />
           </div>
+          <div className="mb-4">
+            <label htmlFor="confirmPassword" className="block text-gray-700 text-xl">
+              Confirm Password:
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              className="mt-1 block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-emerald-200"
+              placeholder="Confirm your password"
+              value={user.confirmPassword}
+              onChange={handleChange}
+            />
+          </div>
           <button
             type="submit"
             className="w-full bg-emerald-500 text-white py-2 px-4 rounded-md hover:bg-emerald-600 transition duration-300"
@@ -124,12 +153,12 @@ const Register = () => {
           </button>
         </form>
         <span className="flex justify-center gap-2">
-          <h2 className="text-xl">Already Registered?</h2>
+          <h2 className="text-md">Already Registered?</h2>
           <button
-            className="text-red-700 text-xl "
+            className="text-red-700 text-md "
             onClick={() => navigate("/login")}
           >
-            login
+            Login
           </button>
         </span>
       </div>

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Landing from "./pages/Landing"
 import Login from "./component/Login"
 import Register from "./component/Register"
-import Test from "./component/Test"
+import Test from "./component/Tests"
 import Profile from "./component/Profile"
 import Editprofile from "./component/Editprofile"
 

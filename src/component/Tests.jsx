@@ -125,6 +125,9 @@ const Test = () => {
           <h2 className="text-white text-center text-2xl font-semibold mb-6">
             {questions[currentQuestionIndex].question}
           </h2>
+          <p className="text-white text-center mb-4">
+            Question {currentQuestionIndex + 1} of {questions.length}
+          </p>
           <div className="mt-4 flex flex-col items-center">
             {questions[currentQuestionIndex].options.map((option, index) => (
               <button
@@ -192,8 +195,7 @@ const Test = () => {
         )
       )}
     </div>
-  );  
+  );
 };
 
 export default Test;
-  

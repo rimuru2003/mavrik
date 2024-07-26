@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 const Register = () => {
   const [user, setUser] = useState({
     firstName: '',
@@ -9,7 +10,8 @@ const Register = () => {
     password: ''
   });
   const [error, setError] = useState('');
-const Navigate = useNavigate()
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setUser((prev) => ({
       ...prev,
@@ -23,29 +25,23 @@ const Navigate = useNavigate()
 
     const { firstName, lastName, username, email, password } = user;
 
-    // Basic validation
     if (!firstName || !lastName || !username || !email || !password) {
       setError('Please fill in all fields');
       return;
     }
 
-    // Store user data in local storage
     localStorage.setItem('user', JSON.stringify(user));
-
-    // Redirect to login page or show success message
     console.log('User registered:', user);
   };
 
-  console.log('User:', user);
-
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-80">
-        <h2 className="text-2xl mb-4 text-center">Register</h2>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 bg-gradient-to-r from-green-400 to-blue-500">
+      <div className=" bg-opacity-50 p-8 rounded shadow-xl w-[30%] backdrop-blur-md backdrop-filter">
+        <h2 className="text-3xl mb-4 text-center">Register</h2>
         {error && <div className="mb-4 text-red-500 text-center">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="firstName" className="block text-gray-700">First Name</label>
+            <label htmlFor="firstName" className="block text-gray-700 text-xl">First Name:</label>
             <input
               type="text"
               id="firstName"
@@ -57,7 +53,7 @@ const Navigate = useNavigate()
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="lastName" className="block text-gray-700">Last Name</label>
+            <label htmlFor="lastName" className="block text-gray-700 text-xl">Last Name:</label>
             <input
               type="text"
               id="lastName"
@@ -69,7 +65,7 @@ const Navigate = useNavigate()
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-700">Username</label>
+            <label htmlFor="username" className="block text-gray-700 text-xl">Username:</label>
             <input
               type="text"
               id="username"
@@ -81,7 +77,7 @@ const Navigate = useNavigate()
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700">Email</label>
+            <label htmlFor="email" className="block text-gray-700 text-xl">Email:</label>
             <input
               type="email"
               id="email"
@@ -93,7 +89,7 @@ const Navigate = useNavigate()
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700">Password</label>
+            <label htmlFor="password" className="block text-gray-700 text-xl">Password:</label>
             <input
               type="password"
               id="password"
@@ -112,8 +108,8 @@ const Navigate = useNavigate()
           </button>
         </form>
         <span className="flex justify-center gap-2">
-          <h2>Already Registered?</h2>{" "}
-          <button className='text-red-400' onClick={() => Navigate("/login")}>login </button>{" "}
+          <h2 className='text-xl'>Already Registered?</h2>
+          <button className='text-red-700 text-xl ' onClick={() => navigate("/login")}>login</button>
         </span>
       </div>
     </div>

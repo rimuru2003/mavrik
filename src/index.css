@@ -3,7 +3,14 @@
 @tailwind utilities;  
 
 
-
+body{
+    /*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=133b83&c2=2e9e8e&gt=l&gd=dtl
+*/
+background: #133B83;
+background: linear-gradient(135deg, #133B83, #2E9E8E);
+}
 
 
 

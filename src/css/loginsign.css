@@ -1,0 +1,8 @@
+body {
+  background: #133B83;
+  background: linear-gradient(135deg, #133B83, #2E9E8E);
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, #133B83, #2E9E8E);
+}

@@ -1,22 +1,24 @@
-// Landing.js
+
+
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
-  const navigate = useNavigate();
-
   return (
-    <div>
-      <button
-        className="h-10 w-28 border-solid absolute top-4 right-8 border-4 border-emerald-200"
-        onClick={() => navigate('/login')}
-      >
-        login/Signup
-      </button>
-      <h1 className="absolute top-[30%] right-[26%] text-7xl">Welcome to the website</h1>
-      <button className="h-10 w-24 border-solid absolute top-[50%] right-[50%] border-4 border-emerald-200">
-        try demo
-      </button>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-green-400 to-blue-500">
+      <h1 className="text-6xl mb-6 text-white">Welcome to the Website</h1>
+      <div className="flex gap-4 absolute top-4 right-8 ">
+        <Link to="/login">
+          <button className=" text-black py-2 px-4 h-12 w-28 text-xl border-2 rounded-md border-emerald-200 text-md">
+            Login
+          </button>
+        </Link>
+      </div>
+      <Link to="/test">
+        <button className="h-12 w-28 border-solid absolute top-[55%] right-[47%] border-2 rounded-md border-emerald-200 text-xl">
+          Try demo
+        </button>
+      </Link>
     </div>
   );
 };

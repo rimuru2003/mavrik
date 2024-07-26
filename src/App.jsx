@@ -1,18 +1,24 @@
 import React from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Landing from "./pages/Landing"
-import Dashboard from "./pages/Dashboard"
+import Login from "./component/Login"
+import Register from "./component/Register"
+import Test from "./component/test"
+import Profile from "./component/Profile"
+import Editprofile from "./component/Editprofile"
 
 const App = () => {
   return (
-    <div className="bg-red-600">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Dashboard />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/editprofile" element={<Editprofile />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

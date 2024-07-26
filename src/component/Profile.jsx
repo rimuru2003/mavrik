@@ -1,32 +1,33 @@
-import React, { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { MdOutlineArrowBack } from "react-icons/md"
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { MdOutlineArrowBack } from "react-icons/md";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    username: "",
+
     image: "https://via.placeholder.com/150",
-  })
-  const [loading, setLoading] = useState(true)
-  const navigate = useNavigate()
+  });
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const storedProfile = JSON.parse(localStorage.getItem("user"))
+    const storedProfile = JSON.parse(localStorage.getItem("user"));
     if (storedProfile) {
-      setProfile(storedProfile)
+      setProfile(storedProfile);
     }
-    setLoading(false)
-  }, [])
+    setLoading(false);
+  }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("user")
-    navigate("/login")
-  }
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   return (
@@ -39,7 +40,10 @@ const Profile = () => {
           <MdOutlineArrowBack size={26} />
         </button>
       </Link>
-      <div className="bg-white p-8 rounded-lg shadow-xl flex flex-col items-center w-1/2 h-1/2 max-w-md">
+      <div
+        className="bg-white p-8 rounded-lg shadow-xl"
+        style={{ width: "80vw", height: "80vh" }}
+      >
         <img
           src={profile.image}
           alt={`${profile.firstName} ${profile.lastName}'s Profile`}
@@ -48,10 +52,10 @@ const Profile = () => {
         <h1 className="text-2xl font-semibold text-gray-800">
           {profile.firstName} {profile.lastName}
         </h1>
-        <p className="text-gray-600">@{profile.username}</p>
+
         <p>{profile.email}</p>
         <Link to="/editprofile">
-          <button className="rounded-md border-black border-2 mt-4">
+          <button className="rounded-md border-black border-2  absolute top-24 left-80">
             Edit Profile
           </button>
         </Link>
@@ -63,9 +67,14 @@ const Profile = () => {
         >
           Log Out
         </button>
+        <div className="h-60 w-80  absolute right-72 top-32 border-red-700 border-2   ">
+         <div> </div>
+         <button>edit flashcard</button>
+        </div>
+        
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

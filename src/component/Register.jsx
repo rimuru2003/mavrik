@@ -7,7 +7,6 @@ const Register = () => {
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
-    username: "",
     email: "",
     password: "",
     confirmPassword: ""
@@ -34,9 +33,9 @@ const Register = () => {
     e.preventDefault()
     setError("")
 
-    const { firstName, lastName, username, email, password, confirmPassword } = user
+    const { firstName, lastName, email, password, confirmPassword } = user
 
-    if (!firstName || !lastName || !username || !email || !password || !confirmPassword) {
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
       setError("Please fill in all fields")
       return
     }
@@ -89,20 +88,7 @@ const Register = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-700 text-xl">
-              Username:
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              className="mt-1 block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-emerald-200"
-              placeholder="Enter your username"
-              value={user.username}
-              onChange={handleChange}
-            />
-          </div>
+        
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 text-xl">
               Email:

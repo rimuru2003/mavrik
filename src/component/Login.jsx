@@ -1,48 +1,47 @@
-import React, { useState } from "react"
-// import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify"
-import { Link } from "react-router-dom"
-import { MdOutlineArrowBack } from "react-icons/md"
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { MdOutlineArrowBack } from "react-icons/md";
 
 const Login = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  // const Navigate = useNavigate();
-  const notify = () => toast("Loged in sucessfully")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const notify = () => toast("Logged in successfully");
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setError("")
+    e.preventDefault();
+    setError("");
 
     if (!email || !password) {
-      setError("Please enter both email and password")
-      return
+      setError("Please enter both email and password");
+      return;
     }
 
-    const storedUser = JSON.parse(localStorage.getItem("user"))
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const user = storedUsers.find(
+      (user) => user.email === email && user.password === password
+    );
 
-    if (!storedUser) {
-      setError("User does not exist")
-      return
+    if (!user) {
+      setError("Invalid email or password");
+      return;
     }
 
-    if (storedUser.email !== email || storedUser.password !== password) {
-      setError("Invalid email or password")
-      return
-    }
-
-    console.log("Login successful")
-  }
+    localStorage.setItem("user", JSON.stringify(user));
+    notify();
+    navigate("/profile"); 
+  };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 bg-gradient-to-r from-green-400 to-blue-500 ">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 bg-gradient-to-r from-green-400 to-blue-500">
       <Link to="/">
         <button className="absolute text-white z-40 top-10 left-11 p-2 bg-black rounded-full shadow-md hover:bg-gray-800 transition duration-300">
           <MdOutlineArrowBack size={26} />
         </button>
       </Link>
-      <div className=" p-8 rounded shadow-md w-80 backdrop-blur-md backdrop-filter">
+      <div className="p-8 rounded shadow-md w-80 backdrop-blur-md backdrop-filter">
         <h2 className="text-3xl mb-4 text-center">Login</h2>
         {error && <div className="mb-4 text-red-500 text-center">{error}</div>}
         <form onSubmit={handleSubmit}>
@@ -77,20 +76,19 @@ const Login = () => {
           <button
             type="submit"
             className="w-full bg-emerald-500 text-white py-2 px-4 rounded-md hover:bg-emerald-600 transition duration-300"
-            onClick={notify}
           >
             Submit
           </button>
         </form>
         <span className="flex justify-center gap-2">
-          <h2 className="text-md">Not Registered?</h2>{" "}
-          <Link to="/Register">
-            <button className="text-red-700 text-md">Register </button>
+          <h2 className="text-md">Not Registered?</h2>
+          <Link to="/register">
+            <button className="text-red-700 text-md">Register</button>
           </Link>
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

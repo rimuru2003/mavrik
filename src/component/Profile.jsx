@@ -7,16 +7,32 @@ const Profile = () => {
     firstName: "",
     lastName: "",
     email: "",
-
     image: "https://via.placeholder.com/150",
   });
+  const [minScore, setMinScore] = useState(null);
+  const [maxScore, setMaxScore] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedProfile = JSON.parse(localStorage.getItem("user"));
+    const storedProfile = localStorage.getItem("user");
     if (storedProfile) {
-      setProfile(storedProfile);
+      try {
+        const parsedProfile = JSON.parse(storedProfile);
+        if (parsedProfile) {
+          setProfile(parsedProfile);
+          const { email } = parsedProfile;
+          if (email) {
+            const userScores = JSON.parse(localStorage.getItem(`scores_${email}`)) || [];
+            if (userScores.length > 0) {
+              setMinScore(Math.min(...userScores));
+              setMaxScore(Math.max(...userScores));
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Error parsing user data from local storage:", error);
+      }
     }
     setLoading(false);
   }, []);
@@ -52,26 +68,24 @@ const Profile = () => {
         <h1 className="text-2xl font-semibold text-gray-800">
           {profile.firstName} {profile.lastName}
         </h1>
-
         <p>{profile.email}</p>
         <Link to="/editprofile">
-          <button className="rounded-md border-black border-2  absolute top-24 left-80">
+          <button className="rounded-md border-black border-2 mt-4">
             Edit Profile
           </button>
         </Link>
-        <h2 className="mt-4">min: 90%</h2>
-        <h2>max: 30%</h2>
+        <h2 className="mt-4">Min Score: {minScore !== null ? minScore : "N/A"}</h2>
+        <h2>Max Score: {maxScore !== null ? maxScore : "N/A"}</h2>
         <button
           onClick={handleLogout}
           className="mt-4 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
         >
           Log Out
         </button>
-        <div className="h-60 w-80  absolute right-72 top-32 border-red-700 border-2   ">
-         <div> </div>
-         <button>edit flashcard</button>
+        <div className="h-60 w-80 absolute right-72 top-32 border-red-700 border-2">
+          <div></div>
+          <button>Edit Flashcard</button>
         </div>
-        
       </div>
     </div>
   );

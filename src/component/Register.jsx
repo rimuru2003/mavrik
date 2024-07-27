@@ -1,7 +1,6 @@
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { MdOutlineArrowBack } from "react-icons/md"
-import { Link } from "react-router-dom"
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { MdOutlineArrowBack } from "react-icons/md";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -9,45 +8,55 @@ const Register = () => {
     lastName: "",
     email: "",
     password: "",
-    confirmPassword: ""
-  })
-  const [error, setError] = useState("")
-  const navigate = useNavigate()
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUser((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
-    }))
+    }));
 
     if (e.target.name === 'password' || e.target.name === 'confirmPassword') {
       if (user.password !== user.confirmPassword) {
-        setError("Passwords do not match")
+        setError("Passwords do not match");
       } else {
-        setError("")
+        setError("");
       }
     }
-  }
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setError("")
+    e.preventDefault();
+    setError("");
 
-    const { firstName, lastName, email, password, confirmPassword } = user
+    const { firstName, lastName, email, password, confirmPassword } = user;
 
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
-      setError("Please fill in all fields")
-      return
+      setError("Please fill in all fields");
+      return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match")
-      return
+      setError("Passwords do not match");
+      return;
     }
 
-    localStorage.setItem("user", JSON.stringify(user))
-    console.log("User registered:", user)
-  }
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    
+    if (users.some(u => u.email === email)) {
+      setError("Email is already registered");
+      return;
+    }
+
+    users.push({ firstName, lastName, email, password });
+    localStorage.setItem("users", JSON.stringify(users));
+
+    console.log("User registered:", user);
+    navigate("/login"); 
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 bg-gradient-to-r from-green-400 to-blue-500">
@@ -56,7 +65,7 @@ const Register = () => {
           <MdOutlineArrowBack size={26} />
         </button>
       </Link>
-      <div className=" bg-opacity-50 p-8 rounded shadow-xl w-[30%] backdrop-blur-md backdrop-filter">
+      <div className="bg-opacity-50 p-8 rounded shadow-xl w-[30%] backdrop-blur-md backdrop-filter">
         <h2 className="text-3xl mb-4 text-center">Register</h2>
         {error && <div className="mb-4 text-red-500 text-center">{error}</div>}
         <form onSubmit={handleSubmit}>
@@ -88,7 +97,6 @@ const Register = () => {
               onChange={handleChange}
             />
           </div>
-        
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 text-xl">
               Email:
@@ -141,7 +149,7 @@ const Register = () => {
         <span className="flex justify-center gap-2">
           <h2 className="text-md">Already Registered?</h2>
           <button
-            className="text-red-700 text-md "
+            className="text-red-700 text-md"
             onClick={() => navigate("/login")}
           >
             Login
@@ -149,7 +157,7 @@ const Register = () => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

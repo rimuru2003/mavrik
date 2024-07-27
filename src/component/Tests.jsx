@@ -78,7 +78,7 @@ const Test = () => {
       const previousScores = JSON.parse(localStorage.getItem("scores")) || [];
       
       previousScores.push(finalScore);
-      
+                          
       localStorage.setItem("scores", JSON.stringify(previousScores));
 
       setShowResults(true);
@@ -147,21 +147,21 @@ const Test = () => {
             <button
               onClick={handlePrev}
               className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
-              disabled={currentQuestionIndex === 0}
+              // disabled={currentQuestionIndex === 0}
             >
               Prev
             </button>
             <button
               onClick={handleSubmit}
               className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300"
-              disabled={selectedAnswers.some((answer) => answer === null)}
+              // disabled={selectedAnswers.some((answer) => answer === null)}
             >
               Submit
             </button>
             <button
               onClick={handleNext}
               className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
-              disabled={currentQuestionIndex === questions.length - 1}
+              // disabled={currentQuestionIndex === questions.length - 1}
             >
               Next
             </button>
